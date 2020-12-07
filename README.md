@@ -6,10 +6,4 @@
 
 # Team Members: Mason Barrios, Joaquin Flores, Jasmine Gomez, and Dylan Mora
 
-# Link to (1) Presentation:https://drive.google.com/file/d/1L_JUKhI9yr1iwZrDK0mw2Wl8VcuDzw4m/view?usp=sharing
-
-# Link to (2) Tutorial: https://drive.google.com/file/d/11_A29Qhz8NPjGYMGqrcwcoKEhUzeTjzm/view?usp=sharing
-
-# Link to (3) Paper: https://drive.google.com/file/d/1xkHLEyuYaQzKY-jQh-rS4OK1sfXn8EHp/view?usp=sharing
-
-# Link to Code: https://drive.google.com/file/d/1X2Fz9FWC6yI9YFVOCAH8CPR33DMR8fLF/view?usp=sharing
+# Alternate Link if repository is down: https://drive.google.com/drive/folders/1NU3mIFMR9SswiV6GUipVgymBSO4yVrtB?usp=sharing
