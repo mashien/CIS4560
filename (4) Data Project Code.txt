@@ -1,0 +1,151 @@
+Here is the script to download our stock market dataset to 
+our school cluster. Our next step is to make the data presentable.
+We discussed using lab 9 (pigETL) to clean our data. You guys can
+experiment with the data after you download it to the school system.
+Make sure to unzip it before you attempt to pull data from it.
+
+---------------------------------------------------
+##ssh to our class cluster##
+
+$ ssh [yourusernamehere]@129.150.64.74
+
+##wget below downloads our stock market data zip##
+
+$ cd .. 
+
+$ cd ..
+
+$ cd ..
+
+$ cd dev
+
+$ cd shm
+
+$ pwd
+
+###NOTE: type "pwd" and it should say "dev/shm/" now you can proceed to the command below. If it doesnt, hit up the groupchat### 
+
+$ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1fr-FVU0ZddRNuYvmPo79Mpkj403BguOt' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1fr-FVU0ZddRNuYvmPo79Mpkj403BguOt" -O stock_data && rm -rf /tmp/cookies.txt
+
+*********wait till download completes(takes approx 5 minutes)***************
+
+$ ls
+
+$ unzip stock_data
+
+$ hdfs dfs -mkdir dataproj
+
+***************the following "-put" statement will take 20ish minutes to complete*********************
+$ hdfs dfs -put Tickers.xlsx dataproj/
+$ hdfs dfs -put Data dataproj/
+$ hdfs dfs -ls dataproj/
+
+$ rm -r Data
+$ rm -r stock_data
+$ rm -r Tickers.xlsx
+*************now you can process the data like we do from our labs******************
+
+hdfs dfs -chmod 777 /user/mbarrio5/dataproj/Data/Data/*/*
+
+*********************************************************************************************
+code below only pulls 1 stock data (for testing as pulling all 101,000 stocks takes 2hours due to 12gb)
+***************************************************************************************
+$ pig
+
+$ stock_data = LOAD '/user/mbarrio5/dataproj/Data/Data/0002.HK/0002.HK.csv' USING PigStorage(',','-tagFile')
+	AS (date:chararray, open:chararray, high:chararray,
+	low:chararray, close:chararray, adjclose:chararray,
+	volume:chararray);
+
+$ Describe stock_data;
+
+$ stock_data_subset = limit stock_data 50;
+
+$ DUMP stock_data_subset;
+
+*******************************************
+$ stock_data = LOAD '/user/mbarrio5/dataproj/Data/Data/*/*' 
+	USING PigStorage(',','-tagFile')
+	AS (date:chararray, open:chararray, high:chararray,
+	low:chararray, close:chararray, adjclose:chararray,
+	volume:chararray);
+
+$ stock_data_subset = stock_data;
+
+$ store stock_data_subset into 'output/cmpldata' using PigStorage(',');
+
+$ cd ..
+
+$ cd ..
+
+$ cd home
+
+$ cd mbarrio5
+
+$ hdfs dfs -get output/cmpldata/part-r-00000 testdata.csv
+
+************Open a new git bash terminal*****************
+
+$ scp mbarrio5@129.150.64.74:/home/mbarrio5/testdata.csv .
+
+******************************for excel data cleaning**********
+CTRL + F
+Example:
+Find What = *L*
+Replace With = United Kingdom
+
+*.L*
+United Kingdom
+*.SW*
+Switzerland
+*.ST*
+Sweden
+*.MC*
+Spain
+*.KQ*
+South Korea
+*.OL*
+Norway
+*.AS*
+Netherlands
+*.TA*
+Israel
+*.JK*
+Indonesia
+*.NS*
+India
+*.BO*
+India
+*.AT*
+Greece
+*.DE*
+Germany
+*.MU*
+Germany
+*.BE*
+Germany
+*.PA*
+France
+*.F*
+France
+*.CO*
+Denmark
+*.SS*
+China
+*.TO*
+Canada
+*.V*
+Canada
+*.SA*
+Brazil
+*.BR*
+Belgium
+*.AX*
+Australia
+*.CSV*
+United States
+
+
+
+
+
