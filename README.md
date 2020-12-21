@@ -6,4 +6,4 @@
 
 # Team Members: Mason Barrios, Joaquin Flores, Jasmine Gomez, and Dylan Mora
 
-# Alternate Link if repository is down: https://drive.google.com/drive/folders/1NU3mIFMR9SswiV6GUipVgymBSO4yVrtB?usp=sharing
+
